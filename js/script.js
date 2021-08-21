@@ -1,21 +1,39 @@
+// Extra price
 function extraCost(idName, value) {
     const previousCost = document.getElementById(idName);
     previousCost.innerText = value;
+    calculateTotal();
 }
 
+// get input value
+function getValue(inputId) {
+    const inputValue = document.getElementById(inputId).innerText;
+    const value = parseInt(inputValue);
+    return value;
+}
+
+// calculate total price
+function calculateTotal() {
+    const mainCost = getValue('best-price');
+    const memoryCost = getValue('memory-cost');
+    const storageCost = getValue('storage-cost');
+    const deliveryCost = getValue('delivery-charge');
+    const totalPrice = mainCost + memoryCost + storageCost + deliveryCost;
+    document.getElementById('total-price').innerText = totalPrice;
+    document.getElementById('total').innerText = totalPrice;
+}
+
+// if Promo code added
 function promoCode(inputText) {
     if (inputText.value == 'stevekaku') {
         const subTotalElement = document.getElementById('total-price');
         const totalElement = document.getElementById('total');
-
         const subTotal = subTotalElement.innerText;
         const grandTotal = subTotal - (subTotal * 20 / 100);
         totalElement.innerText = grandTotal;
     }
     inputText.value = '';
 }
-
-
 
 
 // memory cost
@@ -49,35 +67,8 @@ document.getElementById('paidDelivery').addEventListener('click', function () {
     extraCost('delivery-charge', 20);
 });
 
-// total price
-
-/* const mainCostText = document.getElementById('best-price').innerText;
-const mainCost = parseInt(mainCostText);
-
-const memoryCostText = document.getElementById('memory-cost').innerText;
-const memoryCost = parseInt(memoryCostText);
-
-const storageCostText = document.getElementById('storage-cost').innerText;
-const storageCost = parseInt(storageCostText);
-
-const deliveryCostText = document.getElementById('delivery-charge').innerText;
-const deliveryCost = parseInt(deliveryCostText);
-
-let currentBalance = document.getElementById('best-price').innerText;
-let totalBalance = document.getElementById('total-price').innerText;
-totalBalance.innerText = mainCost + memoryCost + storageCost + deliveryCost + parseInt(currentBalance);
- */
-// console.log(totalPrice);
-// document.getElementById('total-price').innerText = totalPrice;
-// document.getElementById('total').innerText = totalPrice;
-
-
-
-
-
 // Promo code
 document.getElementById('apply-btn').addEventListener('click', function () {
-    const pomoCode = document.getElementById('pomo-code');
-    promoCode(pomoCode);
+    const promoCodeText = document.getElementById('promo-code');
+    promoCode(promoCodeText);
 });
-
